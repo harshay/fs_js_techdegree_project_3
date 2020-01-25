@@ -9,9 +9,12 @@ name_elm     = document.getElementById("name");
 //select the job role text box on the form
 job_role_elm = document.getElementById("title");
 
+job_role_elm.addEventListner("change", (event) => {
 
+    console.log(event.target.value);
 
-console.log(job_role_elm.value);
+});
+
 
 
 //set focus on page load
