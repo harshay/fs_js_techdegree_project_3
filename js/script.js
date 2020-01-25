@@ -16,7 +16,7 @@ const shirt_elm =  document.getElementsByClassName("shirt")[0];
 //
 const form_parent =  document.getElementsByClassName("container")[0];
 //
-const main_form = document.getElementsbyTagName("form")[0];
+const main_form = document.getElementsByTagName("form")[0];
 main_form.setAttribute("id","mainform");
 /***********************************************************************************************/
 
