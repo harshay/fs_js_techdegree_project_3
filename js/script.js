@@ -17,17 +17,17 @@ const shirt_elm =  document.getElementsByClassName("shirt")[0];
 const form_parent =  document.getElementsByClassName("container")[0];
 //
 const main_form = document.getElementsByTagName("form")[0];
-main_form.setAttribute("id","mainform");
+
 /***********************************************************************************************/
 
 //set focus on page load
 name_elm.focus();
 
 /***********************************************************************************************/
-form_parent.insertBefore(shirt_elm,shirt_elm);
+main_form.insertBefore(job_role_elm_other,shirt_elm);
 
 //hide text box by default
-job_role_elm_other.style.display = "";
+job_role_elm_other.style.display = "none";
 
 job_role_elm.addEventListener('change', (event) => {
 
