@@ -17,7 +17,8 @@ const shirt_elm =  document.getElementsByClassName("shirt")[0];
 const form_parent =  document.getElementsByClassName("container")[0];
 //
 const main_form = document.getElementsByTagName("form")[0];
-
+// theme selection element
+const design_theme_elm = document.getElementById("design");
 /***********************************************************************************************/
 
 //set focus on page load
@@ -42,5 +43,18 @@ job_role_elm.addEventListener('change', (event) => {
     };
 
 });
+/***********************************************************************************************/
+
+//first page load
+if(design_theme_elm.value.toLowerCase() === "select theme") {
+
+    console.log("test");
+
+//Please select a T-shirt theme
+
+
+};
+
+
 
 /***********************************************************************************************/
