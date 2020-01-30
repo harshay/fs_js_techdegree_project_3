@@ -43,24 +43,42 @@ job_role_elm.addEventListener('change', (event) => {
 
 });
 /***********************************************************************************************/
+//tshirt info
+
 // theme selection element
 const design_theme_elm = document.getElementById("design");
 //
 // colours selection element
 const colour_theme_elm = document.getElementById("color");
 //
-const colour_theme_elm_cnodes = document.getElementById("color").childNodes;
+const colour_theme_elm_children = document.getElementById("color").children;
+//
+const no_colour_option = document.createElement("option");
+no_colour_option.textContent = "Please select a T-shirt Theme";
 
-//first page load
-if(design_theme_elm.value.toLowerCase() === "select theme") {
 
-    colour_theme_elm_cnodes[0].style.display = "none";
 
-//Please select a T-shirt theme
+//hide all colours
+const hide_colours = () => {
 
+    //first page load
+    if(design_theme_elm.value.toLowerCase() === "select theme") {
+        
+        for(i=0;i < colour_theme_elm_children.length; i += 1) {
+    
+            colour_theme_elm_children[i].style.display = "none";
+            
+        };
+    //Please select a T-shirt theme
+
+
+    };
+
+    colour_theme_elm.appendChild(no_colour_option);
 
 };
 
 
+hide_colours();
 
-/***********************************************************************************************/
+/************************************************************************************************/
