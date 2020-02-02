@@ -167,7 +167,7 @@ design_theme_elm.addEventListener('change', (event) => {
 //select activites elements
 const reg_main                 = document.getElementsByClassName("activities")[0];
 const reg_main_input_children  = reg_main.getElementsByTagName("input"); 
-console.log(reg_main_input_children[0].getAttribute("data-cost"));
+
 //select activites elements by tagerting directly
 const reg_all                  = document.querySelector('input[name="all"]');
 const reg_js_frameworks        = document.querySelector('input[name="js-frameworks"]');
@@ -177,6 +177,10 @@ const reg_node                 = document.querySelector('input[name="node"]');
 const reg_build_tools          = document.querySelector('input[name="build-tools"]');
 const reg_npm                  = document.querySelector('input[name="npm"]');
 
+//
+const no_colour_option      = document.createElement("div");
+//console.log(reg_all);
+//console.log(reg_main_input_children[0]);
 
 //function will enable all checkboxes
 const reg_enable_all = () => { 
@@ -188,12 +192,38 @@ const reg_enable_all = () => {
     };
 };
 
+
+
+//function will calculate the total cost
+const reg_total_cost_func = () => {     
+    
+let reg_total_cost = 0;
+let reg_total_cost_hold = 0;
+
+    for(i=0;i < reg_main_input_children.length; i+=1) {
+        
+        if(reg_main_input_children[i].checked === true) {                  
+            
+            reg_total_cost_hold = parseInt(reg_main_input_children[i].getAttribute("data-cost"));              
+
+        };        
+        
+        reg_total_cost = reg_total_cost + reg_total_cost_hold;
+
+        //reset hold value
+        reg_total_cost_hold = 0;
+        
+    };
+    
+    return reg_total_cost;
+};
+
 reg_main.addEventListener('change', (event) => {
 
     //enable all checkboxes first
     reg_enable_all();
 
-    if(reg_js_frameworks.checked === true) { 
+    if(reg_js_frameworks.checked  === true) { 
 
             reg_express.disabled = true;
             
@@ -212,7 +242,7 @@ reg_main.addEventListener('change', (event) => {
 
     };
 
-    if(reg_build_tools.checked       === true) {
+    if(reg_build_tools.checked   === true) {
 
         reg_npm.disabled = true;
 
@@ -221,6 +251,9 @@ reg_main.addEventListener('change', (event) => {
         reg_build_tools.disabled = true;
 
     };
+
+    //calculate total cost
+    console.log(reg_total_cost_func());
 
 });
 
