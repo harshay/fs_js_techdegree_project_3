@@ -5,8 +5,11 @@ Project Number : 3
 */
 
 /***********************************************************************************************/
+//basic info section
+
 //select form name element
 const name_elm           = document.getElementById("name");
+const email_elm           = document.getElementById("email");
 //select the job role text box on the form
 const job_role_elm       = document.getElementById("title");
 //create a text box for the job role element which will be visible when other is clicked
@@ -20,7 +23,6 @@ const form_parent        =  document.getElementsByClassName("container")[0];
 const main_form          = document.getElementsByTagName("form")[0];
 
 /***********************************************************************************************/
-
 //set focus on page load
 name_elm.focus();
 
@@ -164,6 +166,8 @@ design_theme_elm.addEventListener('change', (event) => {
 /************************************************************************************************/
 //register for activities section
 
+const form_main                = document.getElementsByTagName("form")[0];
+
 //select activites elements
 const reg_main                 = document.getElementsByClassName("activities")[0];
 const reg_main_input_children  = reg_main.getElementsByTagName("input"); 
@@ -177,10 +181,12 @@ const reg_node                 = document.querySelector('input[name="node"]');
 const reg_build_tools          = document.querySelector('input[name="build-tools"]');
 const reg_npm                  = document.querySelector('input[name="npm"]');
 
-//
-const no_colour_option      = document.createElement("div");
-//console.log(reg_all);
-//console.log(reg_main_input_children[0]);
+//create and append element that will display the total cost
+const total_cost_div           = document.createElement("div");
+total_cost_div.innerHTML       = "Total Cost is $" + 0;
+const payment_info_main        = reg_main.nextElementSibling;
+form_main.insertBefore(total_cost_div,payment_info_main);
+
 
 //function will enable all checkboxes
 const reg_enable_all = () => { 
@@ -192,9 +198,7 @@ const reg_enable_all = () => {
     };
 };
 
-
-
-//function will calculate the total cost
+//function will calculate the total cost of selected activities
 const reg_total_cost_func = () => {     
     
 let reg_total_cost = 0;
@@ -208,9 +212,10 @@ let reg_total_cost_hold = 0;
 
         };        
         
+        //accumulate the cost of all checked boxes
         reg_total_cost = reg_total_cost + reg_total_cost_hold;
 
-        //reset hold value
+        //reset hold value for the next iteration of the loop
         reg_total_cost_hold = 0;
         
     };
@@ -218,6 +223,7 @@ let reg_total_cost_hold = 0;
     return reg_total_cost;
 };
 
+//attach event listner which will disable options depending on the boxes checked
 reg_main.addEventListener('change', (event) => {
 
     //enable all checkboxes first
@@ -225,38 +231,170 @@ reg_main.addEventListener('change', (event) => {
 
     if(reg_js_frameworks.checked  === true) { 
 
-            reg_express.disabled = true;
+            reg_express.disabled  = true;
             
     } else if(reg_express.checked === true) {
 
-            reg_js_frameworks.disabled = true;
+       reg_js_frameworks.disabled = true;
     };
 
-    if(reg_js_libs.checked       === true) {
+    if(reg_js_libs.checked        === true) {
 
-        reg_node.disabled = true;
+        reg_node.disabled         = true;
 
-    } else if(reg_node.checked   === true) {
+    } else if(reg_node.checked    === true) {
 
-        reg_js_libs.disabled = true;
+        reg_js_libs.disabled      = true;
 
     };
 
-    if(reg_build_tools.checked   === true) {
+    if(reg_build_tools.checked    === true) {
 
         reg_npm.disabled = true;
 
-    } else if(reg_npm.checked   === true) {
+    } else if(reg_npm.checked     === true) {
 
-        reg_build_tools.disabled = true;
+        reg_build_tools.disabled  = true;
 
     };
 
     //calculate total cost
-    console.log(reg_total_cost_func());
+    total_cost_div.innerHTML = "Total Cost is $" + reg_total_cost_func();
 
 });
 
 
+/************************************************************************************************/
+//payment info 
+
+const pay_type_drop            = document.getElementById("payment");
+//payment options
+const pay_type_credit_card     = document.getElementById("credit-card");
+const pay_type_paypal          = document.getElementById("paypal");
+const pay_type_bitcoin         = document.getElementById("bitcoin");
+//
+const pay_type_credit_card_option  = document.getElementById("cc-num");
+const pay_type_zip_code_option     = document.getElementById("zip");
+const pay_type_cvv_option          = document.getElementById("cvv");
+
+//
+const pay_method               = document.querySelector('option[value="select method"]');
+const cc_method                = document.querySelector('option[value="credit card"]');
+
+//on page load
+cc_method.setAttribute("selected","selected");
+pay_method.style.display       = "none";
+pay_type_paypal.style.display  = "none";
+pay_type_bitcoin.style.display = "none";
+
+//function will display all payment options
+const pay_type_drop_display_all = () => { 
+
+    pay_type_paypal.style.display      = "";
+    pay_type_bitcoin.style.display     = "";
+    pay_type_credit_card.style.display = "";
+
+}; 
+
+pay_type_drop.addEventListener("change", (event) =>{
+
+    //display all options first
+    pay_type_drop_display_all();
+
+     //hide elements we dont need
+     if(event.target.value                 === "credit card"){ 
+
+        pay_type_paypal.style.display      = "none";
+        pay_type_bitcoin.style.display     = "none";
+
+    } else if (event.target.value          === "bitcoin"){
+
+        pay_type_paypal.style.display      = "none";
+        pay_type_credit_card.style.display = "none";
+        
+    } else if (event.target.value          === "paypal"){
+
+        pay_type_bitcoin.style.display     = "none";
+        pay_type_credit_card.style.display = "none";
+
+    };
+});
 
 /************************************************************************************************/
+//form validation 
+
+//regex test rules
+const email_regex                = /\w+[@]\w+[.]\w+/;
+const credit_card_number_regex   = /\d{13,16}/;
+const zip_code_regex             = /\d{5}/;
+const cvv_regex                  = /\d{3}/;
+
+//initial error flags
+let name_error_flg               = 0; 
+let email_error_flg              = 0; 
+let reg_activities_error_flg     = 0; 
+let credit_card_number_error_flg = 0; 
+let zip_code_error_flg           = 0; 
+let cvv_error_flg                = 0; 
+
+//function will flag validation errors with all form elements if they exist
+const error_test = () => {
+
+    //reset error flags for every execution
+    name_error_flg               = 0; 
+    email_error_flg              = 0; 
+    reg_activities_error_flg     = 0; 
+    credit_card_number_error_flg = 0; 
+    zip_code_error_flg           = 0; 
+    cvv_error_flg                = 0; 
+
+    if(name_elm.value === "" ){
+        
+        name_error_flg = 1;         
+    };
+    if(email_regex.test(email_elm.value) === false ){
+        
+        email_error_flg = 1;         
+    };
+    if(reg_total_cost_func() === 0 ){
+        
+        reg_activities_error_flg = 1;         
+    };
+    if(credit_card_number_regex.test(pay_type_credit_card_option.value) === false ){
+        
+        credit_card_number_error_flg = 1;         
+    };
+    if(zip_code_regex.test(pay_type_zip_code_option.value) === false ){
+        
+        zip_code_error_flg = 1;         
+    };
+    if(cvv_regex.test(pay_type_cvv_option.value) === "" ){
+        
+        cvv_error_flg = 1;         
+    };
+};
+
+/************************************************************************************************/
+//validation error messages on form submission
+
+const submit_button_elm = document.querySelector('button[type="submit"]');
+
+submit_button_elm.addEventListener("click", () => {
+
+    error_test();
+
+    console.log(name_error_flg)              ; 
+    console.log(email_error_flg)              ; 
+    console.log(reg_activities_error_flg)     ; 
+    console.log(credit_card_number_error_flg) ; 
+        console.log(zip_code_error_flg)       ; 
+            console.log(cvv_error_flg)        ; 
+
+
+
+});
+
+
+/************************************************************************************************/
+
+
