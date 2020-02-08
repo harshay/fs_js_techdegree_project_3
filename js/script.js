@@ -30,7 +30,6 @@ name_elm.focus();
 //hide text box by default
 job_role_elm_other.style.display = "none";
 
-
 //detect drop down selection change and display text box if 'other' is selected (hidden by default)
 job_role_elm.addEventListener('change', (event) => {
 
@@ -50,6 +49,7 @@ job_role_elm.addEventListener('change', (event) => {
 
 // theme selection element
 const design_theme_elm      = document.getElementById("design");
+
 //
 // colours selection element
 const colour_theme_elm      = document.getElementById("color");
@@ -57,6 +57,7 @@ const colour_theme_elm      = document.getElementById("color");
 const tomato_option         = document.querySelector('option[value="tomato"]');
 const cornflowerblue_option = document.querySelector('option[value="cornflowerblue"]');
 const no_colour_option      = document.createElement("option");
+const colour_label          = document.querySelector('label[for="color"]');
 
 no_colour_option.textContent = "Please select a T-shirt Theme";
 colour_theme_elm.appendChild(no_colour_option);
@@ -80,6 +81,10 @@ const hide_all_colours = () => {
     
         unhide_all_colours();
 
+        colour_theme_elm.style.display = "none";
+        colour_label.style.display = "none";
+
+        /*
         //hide all except select theme option
         for(i=0;i < colour_theme_elm_children.length; i += 1) {
            
@@ -92,7 +97,7 @@ const hide_all_colours = () => {
         
     cornflowerblue_option.removeAttribute("selected");
     tomato_option.removeAttribute("selected");    
-    no_colour_option.setAttribute("selected","selected");
+    no_colour_option.setAttribute("selected","selected");*/
         
 };
 
@@ -103,6 +108,10 @@ hide_all_colours();
 "Theme - JS Puns"
 */
 const theme_jspuns_colours = () => {
+
+    colour_theme_elm.style.display = "";
+    colour_label.style.display = "";
+    
 
     //hide unwanted
     for(i=0;i < colour_theme_elm_children.length; i += 1) {       
@@ -123,6 +132,9 @@ const theme_jspuns_colours = () => {
 "Theme - I ♥ JS"
 */
 const theme_ilovejs_colours = () => {
+
+    colour_theme_elm.style.display = "";
+    colour_label.style.display = "";
         
     //hide unwanted
     for(i=0;i < colour_theme_elm_children.length; i += 1) {       
@@ -442,7 +454,6 @@ const error_test = () => {
 
 /************************************************************************************************/
 
-
 //validation error messages on form submission
 const submit_button_elm = document.querySelector('button[type="submit"]');
 
@@ -456,11 +467,7 @@ submit_button_elm.addEventListener("click", (event) => {
 
         event.preventDefault();
     };
-    
-       
-
 });
-
 
 /************************************************************************************************/
 
