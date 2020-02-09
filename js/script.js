@@ -334,6 +334,8 @@ pay_type_drop.addEventListener("change", (event) =>{
 /************************************************************************************************/
 //form validation 
 
+
+const paydrop_main               = document.getElementById("payment");
 //regex test rules
 const email_regex                = /\w+[@]\w+[.]\w+/;
 const credit_card_number_regex   = /\d{13,16}/;
@@ -350,8 +352,8 @@ let cvv_error_flg                = 0;
 let total_form_errors_flg        = 0; 
 
 ////////////////////////////////////////////
-const basic_info_parent = document.getElementsByTagName("fieldset")[0]; 
-const payment_info_legend = document.getElementsByTagName("fieldset")[3]; 
+const basic_info_parent              = document.getElementsByTagName("fieldset")[0]; 
+const payment_info_legend            = document.getElementsByTagName("fieldset")[3]; 
 //create and append elements that will display error messages on failed validation
 const name_error_div                 = document.createElement("div");
 const email_error_div                = document.createElement("div");
@@ -365,43 +367,89 @@ email_error_div.innerHTML            = "*Email cannot be blank.";
 activities_error_div.innerHTML       = "*Minimum of 1 selection is required.";
 credit_card_error_div.innerHTML      = "*Creit Card Number entered incorrectly.";
 zip_error_div.innerHTML              = "*Zip Code entered incorrectly.";  
-cvv_error_div.innerHTML              = "*CVV entered incorrectly.";
+cvv_error_div.innerHTML              = "*CVV cannot be blank.";
 //elements next to newly created divs which will contain error messages
 const email_title                    = document.querySelector('label[for="mail"]');
 const job_title                      = document.querySelector('label[for="title"]');
 const expiration_date                = document.querySelector('label[for="exp-month"]');
 //
-name_error_div.style.color = "red";
-email_error_div.style.color = "red";
-activities_error_div.style.color = "red";
+name_error_div.style.color        = "red";
+email_error_div.style.color       = "red";
+activities_error_div.style.color  = "red";
 credit_card_error_div.style.color = "red";
-zip_error_div.style.color = "red";
-cvv_error_div.style.color = "red";
-//
+zip_error_div.style.color         = "red";
+cvv_error_div.style.color         = "red";
+//insert divs containing error messages
 basic_info_parent.insertBefore(name_error_div,email_title);
 basic_info_parent.insertBefore(email_error_div,job_title);
 form_main.insertBefore(activities_error_div,payment_info_legend);
 pay_type_credit_card.insertBefore(credit_card_error_div,expiration_date);
 pay_type_credit_card.insertBefore(zip_error_div,expiration_date);
 pay_type_credit_card.insertBefore(cvv_error_div,expiration_date);
-//
+
 //hide all errors by default
 const hide_all_errors = () => { 
 
-    name_error_div.style.display = "none"; 
+    //name_error_div.style.display = "none"; //changed to realtime
     //email_error_div.style.display = "none"; //changed to realtime
     activities_error_div.style.display = "none";   
     credit_card_error_div.style.display = "none";
     zip_error_div.style.display = "none";
-    //cvv_error_div.style.display = "none"; //chnaged to realtime
+    cvv_error_div.style.display = "none"; 
 
 }; 
 
 //on page load
 hide_all_errors();
 
+//realtime error detection function : Email
+email_elm.addEventListener("keyup", (event) => {
+
+    //check for validation errors
+    email_error_flg               = 0;
+   
+    if (email_elm.value !== "" && email_regex.test(email_elm.value) === false){
+
+        email_error_flg = 1;         
+        email_error_div.style.display = ""; 
+        email_error_div.innerHTML = "*Email Address entered incorrectly";
+
+    }else if (email_elm.value === ""){
+
+        email_error_flg = 1;         
+        email_error_div.style.display = ""; 
+        email_error_div.innerHTML = "*Email cannot be blank.";
+
+
+    }else{
+
+        email_error_flg = 0;         
+        email_error_div.style.display = "none";
+
+    };
+
+});
+
+//realtime error detection function : name
+name_elm.addEventListener("keyup", (event) => {
+
+    name_error_flg                = 0;
+    
+    if(name_elm.value === "" ){
+        
+        name_error_flg = 1;    
+        name_error_div.style.display = "";      
+    }else {
+
+        name_error_flg = 0;    
+        name_error_div.style.display = "none";
+
+    };
+
+});
+
 ////////////////////////////////////////////
-//function will test for validation errors with all form elements and display error messages
+//function will test for validation errors with all form elements and display error messages 
 const error_test = () => {
 
     hide_all_errors();
@@ -431,18 +479,18 @@ const error_test = () => {
         reg_activities_error_flg = 1;   
         activities_error_div.style.display = "";      
     };
-    if(credit_card_number_regex.test(pay_type_credit_card_option.value) === false ){
+    if(credit_card_number_regex.test(pay_type_credit_card_option.value) === false && paydrop_main.options[paydrop_main.selectedIndex].value === "credit card"){
         
         credit_card_number_error_flg = 1;     
         credit_card_error_div.style.display = "";
 
     };
-    if(zip_code_regex.test(pay_type_zip_code_option.value) === false ){
+    if(zip_code_regex.test(pay_type_zip_code_option.value) === false && paydrop_main.options[paydrop_main.selectedIndex].value === "credit card"){
         
         zip_code_error_flg = 1;       
         zip_error_div.style.display = "";  
     };
-    if(cvv_regex.test(pay_type_cvv_option.value) === false ){
+    if(cvv_regex.test(pay_type_cvv_option.value) === false && paydrop_main.options[paydrop_main.selectedIndex].value === "credit card"){
         
         cvv_error_flg = 1;     
         cvv_error_div.style.display = "";    
