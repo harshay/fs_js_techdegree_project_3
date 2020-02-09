@@ -76,7 +76,7 @@ const unhide_all_colours = () => {
     };
 };
 
-//hide all colours ; when theme is selected
+//hide all colours ; when theme is selected 
 const hide_all_colours = () => {
     
         unhide_all_colours();
@@ -84,6 +84,7 @@ const hide_all_colours = () => {
         colour_theme_elm.style.display = "none";
         colour_label.style.display = "none";
 
+    
         /*
         //hide all except select theme option
         for(i=0;i < colour_theme_elm_children.length; i += 1) {
@@ -360,7 +361,7 @@ const zip_error_div                  = document.createElement("div");
 const cvv_error_div                  = document.createElement("div");
 //insert error message into every error div
 name_error_div.innerHTML             = "*Name field cannot be blank.";
-email_error_div.innerHTML            = "*Please check if email has been entered correctly.";
+email_error_div.innerHTML            = "*Email cannot be blank.";
 activities_error_div.innerHTML       = "*Minimum of 1 selection is required.";
 credit_card_error_div.innerHTML      = "*Creit Card Number entered incorrectly.";
 zip_error_div.innerHTML              = "*Zip Code entered incorrectly.";  
@@ -368,7 +369,7 @@ cvv_error_div.innerHTML              = "*CVV entered incorrectly.";
 //elements next to newly created divs which will contain error messages
 const email_title                    = document.querySelector('label[for="mail"]');
 const job_title                      = document.querySelector('label[for="title"]');
-const expiration_date                      = document.querySelector('label[for="exp-month"]');
+const expiration_date                = document.querySelector('label[for="exp-month"]');
 //
 name_error_div.style.color = "red";
 email_error_div.style.color = "red";
@@ -388,11 +389,11 @@ pay_type_credit_card.insertBefore(cvv_error_div,expiration_date);
 const hide_all_errors = () => { 
 
     name_error_div.style.display = "none"; 
-    email_error_div.style.display = "none";
+    //email_error_div.style.display = "none"; //changed to realtime
     activities_error_div.style.display = "none";   
     credit_card_error_div.style.display = "none";
     zip_error_div.style.display = "none";
-    cvv_error_div.style.display = "none";
+    //cvv_error_div.style.display = "none"; //chnaged to realtime
 
 }; 
 
