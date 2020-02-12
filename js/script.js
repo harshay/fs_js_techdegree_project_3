@@ -367,7 +367,7 @@ email_error_div.innerHTML            = "*Email cannot be blank.";
 activities_error_div.innerHTML       = "*Minimum of 1 selection is required.";
 credit_card_error_div.innerHTML      = "*Creit Card Number entered incorrectly.";
 zip_error_div.innerHTML              = "*Zip Code entered incorrectly.";  
-cvv_error_div.innerHTML              = "*CVV cannot be blank.";
+cvv_error_div.innerHTML              = "*CVV entered incorrectly";
 //elements next to newly created divs which will contain error messages
 const email_title                    = document.querySelector('label[for="mail"]');
 const job_title                      = document.querySelector('label[for="title"]');
