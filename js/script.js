@@ -2,7 +2,7 @@
 Full Stack Javascript Treehouse Techdegree
 Name : Harshay Raipancholi
 Project Number : 3
-Project Level : Exceeds Expectation
+Project Level : Exceeds Expectation : Realtime error messages applied on Name & Email fields
 */
 
 /***********************************************************************************************/
@@ -47,6 +47,7 @@ job_role_elm.addEventListener('change', (event) => {
 });
 /***********************************************************************************************/
 //tshirt info
+//Project Level : Exceeds Expectation : Realtime error messages applied on Name & Email fields
 
 // theme selection element
 const design_theme_elm      = document.getElementById("design");
@@ -178,6 +179,9 @@ design_theme_elm.addEventListener('change', (event) => {
 /************************************************************************************************/
 //register for activities section
 
+
+
+
 const form_main                = document.getElementsByTagName("form")[0];
 
 //select activites elements
@@ -271,6 +275,8 @@ reg_main.addEventListener('change', (event) => {
 /************************************************************************************************/
 //payment info 
 
+//Project Level : Exceeds Expectation : Realtime error messages applied on Name & Email fields
+
 const pay_type_drop                    = document.getElementById("payment");
 //payment options
 const pay_type_credit_card             = document.getElementById("credit-card");
@@ -327,13 +333,14 @@ pay_type_drop.addEventListener("change", (event) =>{
 /************************************************************************************************/
 //form validation 
 
+//Project Level : Exceeds Expectation : Realtime error messages applied on Name & Email fields
 
 const paydrop_main               = document.getElementById("payment");
 //regex test rules
 const email_regex                = /\w+[@]\w+[.]\w+/;
-const credit_card_number_regex   = /^$\d{13,16}/;
-const zip_code_regex             = /^$\d{5}/;
-const cvv_regex                  = /^$\d{3}/;
+const credit_card_number_regex   = /^\d{13,16}/;
+const zip_code_regex             = /^\d{5}/;
+const cvv_regex                  = /^\d{3}/;
 
 //initial error flags
 let name_error_flg               = 0; 
@@ -495,8 +502,11 @@ const error_test = () => {
 };
 
 /************************************************************************************************/
-
 //validation error messages on form submission
+
+//Project Level : Exceeds Expectation : Realtime error messages applied on Name & Email fields
+
+
 const submit_button_elm = document.querySelector('button[type="submit"]');
 
 submit_button_elm.addEventListener("click", (event) => {
