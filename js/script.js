@@ -338,9 +338,9 @@ pay_type_drop.addEventListener("change", (event) =>{
 const paydrop_main               = document.getElementById("payment");
 //regex test rules
 const email_regex                = /\w+[@]\w+[.]\w+/;
-const credit_card_number_regex   = /^\d{13,16}/;
-const zip_code_regex             = /^\d{5}/;
-const cvv_regex                  = /^\d{3}/;
+const credit_card_number_regex   = /^\d{13,16}$/;
+const zip_code_regex             = /^\d{5}$/;
+const cvv_regex                  = /^\d{3}$/;
 
 //initial error flags
 let name_error_flg               = 0; 
